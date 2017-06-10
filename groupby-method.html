@@ -1,0 +1,4642 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="/theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/theme/pygments/github.min.css">
+  <link rel="stylesheet" type="text/css" href="/theme/font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+
+<meta name="author" content="Shubham Biswas" />
+<meta name="description" content="Official documentation to groupby() method- [https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html]" />
+<meta name="keywords" content="">
+
+<meta property="og:site_name" content="CodeWeeD"/>
+<meta property="og:title" content="Understanding groupby() method in Pandas."/>
+<meta property="og:description" content="Official documentation to groupby() method- [https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html]"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="/groupby-method.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2017-06-10 22:35:00+05:30"/>
+<meta property="article:modified_time" content="2017-06-08 22:35:00+05:30"/>
+<meta property="article:author" content="/author/shubham-biswas.html">
+<meta property="article:section" content="Posts"/>
+<meta property="og:image" content="">
+
+  <title>CodeWeeD &ndash; Understanding groupby() method in Pandas.</title>
+
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="">
+        <img src="/theme/img/profile.jpeg" alt="" title="">
+      </a>
+      <h1><a href=""></a></h1>
+
+
+      <nav>
+        <ul class="list">
+
+          <li><a href="/index.html" target="_self">Home</a></li>
+          <li><a href="/categories.html" target="_self">Categories</a></li>
+          <li><a href="/archives.html" target="_self">Archives</a></li>
+          <li><a href="/about-me.html" target="_self">About me</a></li>
+          <li><a href="/my-gigs.html" target="_self">My gigs</a></li>
+        </ul>
+      </nav>
+
+      <ul class="social">
+        <li><a class="sc-github" href="https://github.com/CodeWeeD0" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-facebook" href="https://www.facebook.com/zero.shb" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/zero_shubham" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/shubham-biswas-544583107/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-youtube" href="https://www.youtube.com/channel/UCngbLU5x0Zv_u3A1HLOtQkQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
+      </ul>
+    </div>
+
+
+  </aside>
+  <main>
+
+
+<article class="single">
+  <header>
+      
+    <h1 id="groupby-method">Understanding groupby() method in Pandas.</h1>
+    <p>
+          Posted on Sat 10 June 2017 in <a href="/category/posts.html">Posts</a>
+
+
+    </p>
+  </header>
+
+
+  <div>
+    <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Official documentation to groupby() method-</strong> [<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html">https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html</a>]</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [50]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [51]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"Pokemon.csv"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [52]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[52]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>#</th>
+<th>Name</th>
+<th>Type 1</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1</td>
+<td>Bulbasaur</td>
+<td>Grass</td>
+<td>Poison</td>
+<td>318</td>
+<td>45</td>
+<td>49</td>
+<td>49</td>
+<td>65</td>
+<td>65</td>
+<td>45</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2</td>
+<td>Ivysaur</td>
+<td>Grass</td>
+<td>Poison</td>
+<td>405</td>
+<td>60</td>
+<td>62</td>
+<td>63</td>
+<td>80</td>
+<td>80</td>
+<td>60</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>Venusaur</td>
+<td>Grass</td>
+<td>Poison</td>
+<td>525</td>
+<td>80</td>
+<td>82</td>
+<td>83</td>
+<td>100</td>
+<td>100</td>
+<td>80</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>3</th>
+<td>3</td>
+<td>VenusaurMega Venusaur</td>
+<td>Grass</td>
+<td>Poison</td>
+<td>625</td>
+<td>80</td>
+<td>100</td>
+<td>123</td>
+<td>122</td>
+<td>120</td>
+<td>80</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>4</th>
+<td>4</td>
+<td>Charmander</td>
+<td>Fire</td>
+<td>NaN</td>
+<td>309</td>
+<td>39</td>
+<td>52</td>
+<td>43</td>
+<td>60</td>
+<td>50</td>
+<td>65</td>
+<td>1</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [53]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"#"</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>With <strong>drop() method</strong> one can drop a row <strong>(axis=0)</strong> or can drop a column <strong>(axis=1)</strong>. As '#' column was unnecessary it was dropped.</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [54]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 2"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"NA"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [55]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"NA"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Above <strong>fillna() method</strong> is used to <strong>fill any NaN value</strong> found in the specified <strong>Series</strong>.</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [56]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+<span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 2"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [57]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"Type 1"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [58]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">grp_pokemon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[58]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.groupby.DataFrameGroupBy</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">grp_pokemon</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[15]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>18</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[16]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>18</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>The groupby object is basically dividing the dataframe categorically. The categories are selected from the column passed as argument to the groupby() method. It is evident as number of unique values in the "Type 1" column which was passed as argument, is equal to the length of the groupby object.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[17]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Type 1
+Bug          69
+Dark         31
+Dragon       32
+Electric     44
+Fairy        17
+Fighting     27
+Fire         52
+Flying        4
+Ghost        32
+Grass        70
+Ground       32
+Ice          24
+Normal       98
+Poison       28
+Psychic      57
+Rock         44
+Steel        27
+Water       112
+dtype: int64</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[22]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Water       112
+Normal       98
+Grass        70
+Bug          69
+Psychic      57
+Fire         52
+Rock         44
+Electric     44
+Ground       32
+Dragon       32
+Ghost        32
+Dark         31
+Poison       28
+Steel        27
+Fighting     27
+Ice          24
+Fairy        17
+Flying        4
+Name: Type 1, dtype: int64</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Hoping,that you can intuitively understand that the groupby object is mapping the values in "Type 1" column back to dataframe, pointing only to the rows which are under this category.</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>Few available methods of the groupby object :-</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [35]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[35]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>Caterpie</td>
+<td>NA</td>
+<td>195</td>
+<td>45</td>
+<td>30</td>
+<td>35</td>
+<td>20</td>
+<td>20</td>
+<td>45</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>Umbreon</td>
+<td>NA</td>
+<td>525</td>
+<td>95</td>
+<td>65</td>
+<td>110</td>
+<td>60</td>
+<td>130</td>
+<td>65</td>
+<td>2</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>Dratini</td>
+<td>NA</td>
+<td>300</td>
+<td>41</td>
+<td>64</td>
+<td>45</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>Pikachu</td>
+<td>NA</td>
+<td>320</td>
+<td>35</td>
+<td>55</td>
+<td>40</td>
+<td>50</td>
+<td>50</td>
+<td>90</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>Clefairy</td>
+<td>NA</td>
+<td>323</td>
+<td>70</td>
+<td>45</td>
+<td>48</td>
+<td>60</td>
+<td>65</td>
+<td>35</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>Mankey</td>
+<td>NA</td>
+<td>305</td>
+<td>40</td>
+<td>80</td>
+<td>35</td>
+<td>35</td>
+<td>45</td>
+<td>70</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>Charmander</td>
+<td>NA</td>
+<td>309</td>
+<td>39</td>
+<td>52</td>
+<td>43</td>
+<td>60</td>
+<td>50</td>
+<td>65</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>TornadusIncarnate Forme</td>
+<td>NA</td>
+<td>580</td>
+<td>79</td>
+<td>115</td>
+<td>70</td>
+<td>125</td>
+<td>80</td>
+<td>111</td>
+<td>5</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>Gastly</td>
+<td>Poison</td>
+<td>310</td>
+<td>30</td>
+<td>35</td>
+<td>30</td>
+<td>100</td>
+<td>35</td>
+<td>80</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>Bulbasaur</td>
+<td>Poison</td>
+<td>318</td>
+<td>45</td>
+<td>49</td>
+<td>49</td>
+<td>65</td>
+<td>65</td>
+<td>45</td>
+<td>1</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [34]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[34]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>Vivillon</td>
+<td>Flying</td>
+<td>411</td>
+<td>80</td>
+<td>52</td>
+<td>50</td>
+<td>90</td>
+<td>50</td>
+<td>89</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>Yveltal</td>
+<td>Flying</td>
+<td>680</td>
+<td>126</td>
+<td>131</td>
+<td>95</td>
+<td>131</td>
+<td>98</td>
+<td>99</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>Zygarde50% Forme</td>
+<td>Ground</td>
+<td>600</td>
+<td>108</td>
+<td>100</td>
+<td>121</td>
+<td>81</td>
+<td>95</td>
+<td>95</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>Dedenne</td>
+<td>Fairy</td>
+<td>431</td>
+<td>67</td>
+<td>58</td>
+<td>57</td>
+<td>81</td>
+<td>67</td>
+<td>101</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>Xerneas</td>
+<td>NA</td>
+<td>680</td>
+<td>126</td>
+<td>131</td>
+<td>95</td>
+<td>131</td>
+<td>98</td>
+<td>99</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>Hawlucha</td>
+<td>Flying</td>
+<td>500</td>
+<td>78</td>
+<td>92</td>
+<td>75</td>
+<td>74</td>
+<td>63</td>
+<td>118</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>Volcanion</td>
+<td>Water</td>
+<td>600</td>
+<td>80</td>
+<td>110</td>
+<td>120</td>
+<td>130</td>
+<td>90</td>
+<td>70</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>Noivern</td>
+<td>Dragon</td>
+<td>535</td>
+<td>85</td>
+<td>70</td>
+<td>80</td>
+<td>97</td>
+<td>80</td>
+<td>123</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>GourgeistSuper Size</td>
+<td>Grass</td>
+<td>494</td>
+<td>85</td>
+<td>100</td>
+<td>122</td>
+<td>58</td>
+<td>75</td>
+<td>54</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>Gogoat</td>
+<td>NA</td>
+<td>531</td>
+<td>123</td>
+<td>100</td>
+<td>62</td>
+<td>97</td>
+<td>81</td>
+<td>68</td>
+<td>6</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [36]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">==</span><span class="s2">"Bug"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[36]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 1</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>13</th>
+<td>Caterpie</td>
+<td>Bug</td>
+<td>NA</td>
+<td>195</td>
+<td>45</td>
+<td>30</td>
+<td>35</td>
+<td>20</td>
+<td>20</td>
+<td>45</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>14</th>
+<td>Metapod</td>
+<td>Bug</td>
+<td>NA</td>
+<td>205</td>
+<td>50</td>
+<td>20</td>
+<td>55</td>
+<td>25</td>
+<td>25</td>
+<td>30</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>15</th>
+<td>Butterfree</td>
+<td>Bug</td>
+<td>Flying</td>
+<td>395</td>
+<td>60</td>
+<td>45</td>
+<td>50</td>
+<td>90</td>
+<td>80</td>
+<td>70</td>
+<td>1</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [37]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="p">[</span><span class="n">pokemon_df</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">]</span><span class="o">==</span><span class="s2">"Bug"</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[37]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 1</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>732</th>
+<td>Scatterbug</td>
+<td>Bug</td>
+<td>NA</td>
+<td>200</td>
+<td>38</td>
+<td>35</td>
+<td>40</td>
+<td>27</td>
+<td>25</td>
+<td>35</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>733</th>
+<td>Spewpa</td>
+<td>Bug</td>
+<td>NA</td>
+<td>213</td>
+<td>45</td>
+<td>22</td>
+<td>60</td>
+<td>27</td>
+<td>30</td>
+<td>29</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>734</th>
+<td>Vivillon</td>
+<td>Bug</td>
+<td>Flying</td>
+<td>411</td>
+<td>80</td>
+<td>52</td>
+<td>50</td>
+<td>90</td>
+<td>50</td>
+<td>89</td>
+<td>6</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>The <strong>fisrt()</strong> method returns only the first element of each group(or one can say it is the first occurence of each category in the column "Type 1" of the dataframe). Similarly, the <strong>last()</strong> method returns only the last element of each group. Have a look on the above 2 lines, it can deduced</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Operating with numbers:-</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [39]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[39]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>26146</td>
+<td>3925</td>
+<td>4897</td>
+<td>4880</td>
+<td>3717</td>
+<td>4471</td>
+<td>4256</td>
+<td>222</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>13818</td>
+<td>2071</td>
+<td>2740</td>
+<td>2177</td>
+<td>2314</td>
+<td>2155</td>
+<td>2361</td>
+<td>125</td>
+<td>2.0</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>17617</td>
+<td>2666</td>
+<td>3588</td>
+<td>2764</td>
+<td>3099</td>
+<td>2843</td>
+<td>2657</td>
+<td>124</td>
+<td>12.0</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>19510</td>
+<td>2631</td>
+<td>3040</td>
+<td>2917</td>
+<td>3961</td>
+<td>3243</td>
+<td>3718</td>
+<td>144</td>
+<td>4.0</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>7024</td>
+<td>1260</td>
+<td>1046</td>
+<td>1117</td>
+<td>1335</td>
+<td>1440</td>
+<td>826</td>
+<td>70</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [40]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1">#minimum in alphabetical order of the "Name" column</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[40]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>Accelgor</td>
+<td>194</td>
+<td>1</td>
+<td>10</td>
+<td>30</td>
+<td>10</td>
+<td>20</td>
+<td>5</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>Absol</td>
+<td>220</td>
+<td>35</td>
+<td>50</td>
+<td>30</td>
+<td>30</td>
+<td>30</td>
+<td>20</td>
+<td>2</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>Altaria</td>
+<td>300</td>
+<td>41</td>
+<td>50</td>
+<td>35</td>
+<td>30</td>
+<td>30</td>
+<td>40</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>Ampharos</td>
+<td>205</td>
+<td>20</td>
+<td>30</td>
+<td>15</td>
+<td>35</td>
+<td>32</td>
+<td>35</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>Aromatisse</td>
+<td>218</td>
+<td>35</td>
+<td>20</td>
+<td>28</td>
+<td>40</td>
+<td>40</td>
+<td>15</td>
+<td>1</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [41]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1">#maximum in alphabetical order of the "Name" column</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[41]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>Yanmega</td>
+<td>600</td>
+<td>86</td>
+<td>185</td>
+<td>230</td>
+<td>135</td>
+<td>230</td>
+<td>160</td>
+<td>6</td>
+<td>False</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>Zweilous</td>
+<td>680</td>
+<td>126</td>
+<td>150</td>
+<td>125</td>
+<td>140</td>
+<td>130</td>
+<td>125</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>Zygarde50% Forme</td>
+<td>780</td>
+<td>125</td>
+<td>180</td>
+<td>130</td>
+<td>180</td>
+<td>150</td>
+<td>120</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>Zebstrika</td>
+<td>610</td>
+<td>90</td>
+<td>123</td>
+<td>115</td>
+<td>165</td>
+<td>110</td>
+<td>140</td>
+<td>6</td>
+<td>True</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>Xerneas</td>
+<td>680</td>
+<td>126</td>
+<td>131</td>
+<td>95</td>
+<td>131</td>
+<td>154</td>
+<td>99</td>
+<td>6</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [42]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[42]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>378.927536</td>
+<td>56.884058</td>
+<td>70.971014</td>
+<td>70.724638</td>
+<td>53.869565</td>
+<td>64.797101</td>
+<td>61.681159</td>
+<td>3.217391</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>445.741935</td>
+<td>66.806452</td>
+<td>88.387097</td>
+<td>70.225806</td>
+<td>74.645161</td>
+<td>69.516129</td>
+<td>76.161290</td>
+<td>4.032258</td>
+<td>0.064516</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>550.531250</td>
+<td>83.312500</td>
+<td>112.125000</td>
+<td>86.375000</td>
+<td>96.843750</td>
+<td>88.843750</td>
+<td>83.031250</td>
+<td>3.875000</td>
+<td>0.375000</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>443.409091</td>
+<td>59.795455</td>
+<td>69.090909</td>
+<td>66.295455</td>
+<td>90.022727</td>
+<td>73.704545</td>
+<td>84.500000</td>
+<td>3.272727</td>
+<td>0.090909</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>413.176471</td>
+<td>74.117647</td>
+<td>61.529412</td>
+<td>65.705882</td>
+<td>78.529412</td>
+<td>84.705882</td>
+<td>48.588235</td>
+<td>4.117647</td>
+<td>0.058824</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [43]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="p">[</span><span class="s2">"Attack"</span><span class="p">,</span><span class="s2">"Defense"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[43]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Attack</th>
+<th>Defense</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>70.971014</td>
+<td>70.724638</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>88.387097</td>
+<td>70.225806</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>112.125000</td>
+<td>86.375000</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>69.090909</td>
+<td>66.295455</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>61.529412</td>
+<td>65.705882</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Pandas is smart enough to differentiate between numerical operations and act accordingly, operated only on the columns with numerical values.</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>Some other things to know:-</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [46]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">groups</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[46]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>{'Bug': Int64Index([ 13,  14,  15,  16,  17,  18,  19,  51,  52,  53,  54, 132, 136,
+             137, 179, 180, 181, 182, 208, 219, 220, 228, 229, 230, 231, 232,
+             288, 289, 290, 291, 292, 307, 308, 314, 315, 316, 342, 343, 446,
+             447, 457, 458, 459, 460, 461, 462, 463, 520, 600, 601, 602, 603,
+             604, 605, 618, 619, 649, 650, 656, 657, 677, 678, 693, 697, 698,
+             717, 732, 733, 734],
+            dtype='int64'),
+ 'Dark': Int64Index([212, 213, 233, 246, 247, 248, 284, 285, 326, 327, 392, 393, 478,
+             512, 549, 568, 569, 620, 621, 631, 632, 685, 686, 690, 691, 694,
+             695, 696, 756, 757, 793],
+            dtype='int64'),
+ 'Dragon': Int64Index([159, 160, 161, 365, 366, 406, 407, 408, 409, 417, 418, 419, 420,
+             425, 426, 491, 492, 493, 494, 671, 672, 673, 682, 706, 707, 710,
+             711, 712, 774, 775, 776, 794],
+            dtype='int64'),
+ 'Electric': Int64Index([ 30,  31,  88,  89, 108, 109, 134, 146, 157, 186, 193, 194, 195,
+             196, 258, 262, 337, 338, 339, 340, 341, 448, 449, 450, 464, 513,
+             517, 531, 532, 533, 534, 535, 536, 581, 582, 648, 663, 664, 665,
+             704, 705, 764, 765, 772],
+            dtype='int64'),
+ 'Fairy': Int64Index([ 40,  41, 187, 189, 190, 225, 226, 519, 737, 738, 739, 752, 753,
+             754, 755, 770, 792],
+            dtype='int64'),
+ 'Fighting': Int64Index([ 61,  62,  72,  73,  74, 114, 115, 255, 256, 320, 321, 334, 335,
+             336, 496, 497, 498, 592, 593, 594, 598, 599, 680, 681, 742, 743,
+             771],
+            dtype='int64'),
+ 'Fire': Int64Index([  4,   5,   6,   7,   8,  42,  43,  63,  64,  83,  84, 135, 147,
+             158, 169, 170, 171, 236, 237, 259, 263, 270, 276, 277, 278, 279,
+             352, 353, 354, 355, 435, 436, 437, 518, 542, 557, 558, 559, 572,
+             573, 614, 615, 616, 692, 721, 722, 723, 730, 731, 735, 736, 799],
+            dtype='int64'),
+ 'Flying': Int64Index([702, 703, 790, 791], dtype='int64'),
+ 'Ghost': Int64Index([ 99, 100, 101, 102, 215, 385, 386, 387, 388, 389, 472, 473, 477,
+             490, 529, 544, 545, 623, 624, 668, 669, 670, 778, 779, 780, 781,
+             782, 783, 784, 785, 786, 787],
+            dtype='int64'),
+ 'Grass': Int64Index([  0,   1,   2,   3,  48,  49,  50,  75,  76,  77, 110, 111, 122,
+             166, 167, 168, 197, 202, 203, 204, 206, 207, 272, 273, 274, 275,
+             296, 297, 298, 309, 310, 344, 362, 363, 390, 432, 433, 434, 451,
+             452, 467, 468, 505, 509, 510, 511, 516, 521, 550, 551, 554, 555,
+             556, 570, 571, 606, 607, 608, 609, 617, 651, 652, 658, 659, 701,
+             718, 719, 720, 740, 741],
+            dtype='int64'),
+ 'Ground': Int64Index([ 32,  33,  55,  56, 112, 113, 119, 120, 222, 250, 251, 359, 360,
+             361, 375, 376, 423, 424, 499, 500, 515, 523, 588, 589, 611, 612,
+             613, 679, 683, 684, 708, 709],
+            dtype='int64'),
+ 'Ice': Int64Index([133, 156, 238, 239, 243, 257, 395, 396, 397, 398, 399, 400, 415,
+             522, 524, 530, 643, 644, 645, 674, 675, 676, 788, 789],
+            dtype='int64'),
+ 'Normal': Int64Index([ 20,  21,  22,  23,  24,  25,  26,  27,  44,  45,  57,  58,  90,
+              91,  92, 116, 121, 123, 124, 138, 143, 144, 148, 155, 175, 176,
+             177, 178, 188, 205, 218, 221, 234, 235, 252, 253, 254, 260, 261,
+             286, 287, 299, 300, 311, 312, 313, 317, 318, 319, 322, 324, 325,
+             358, 364, 367, 383, 384, 441, 442, 443, 444, 445, 471, 474, 475,
+             476, 479, 480, 488, 489, 495, 514, 525, 543, 552, 563, 564, 565,
+             566, 567, 578, 579, 580, 590, 591, 633, 634, 646, 647, 687, 688,
+             689, 715, 716, 727, 728, 729, 744],
+            dtype='int64'),
+ 'Poison': Int64Index([ 28,  29,  34,  35,  36,  37,  38,  39,  46,  47,  95,  96, 117,
+             118, 183, 345, 346, 368, 482, 483, 501, 502, 503, 504, 629, 630,
+             760, 761],
+            dtype='int64'),
+ 'Psychic': Int64Index([ 68,  69,  70,  71, 104, 105, 131, 162, 163, 164, 165, 191, 192,
+             211, 216, 217, 269, 271, 303, 304, 305, 306, 356, 357, 391, 394,
+             428, 429, 430, 431, 481, 487, 526, 527, 537, 538, 539, 546, 553,
+             576, 577, 586, 587, 622, 635, 636, 637, 638, 639, 640, 666, 667,
+             745, 746, 747, 797, 798],
+            dtype='int64'),
+ 'Rock': Int64Index([ 80,  81,  82, 103, 149, 150, 151, 152, 153, 154, 200, 265, 266,
+             267, 268, 323, 369, 370, 377, 378, 379, 380, 414, 453, 454, 455,
+             456, 486, 528, 583, 584, 585, 627, 628, 700, 758, 759, 766, 767,
+             768, 769, 773, 795, 796],
+            dtype='int64'),
+ 'Steel': Int64Index([223, 224, 245, 328, 329, 330, 331, 332, 333, 410, 411, 412, 413,
+             416, 427, 484, 485, 540, 660, 661, 662, 699, 748, 749, 750, 751,
+             777],
+            dtype='int64'),
+ 'Water': Int64Index([  9,  10,  11,  12,  59,  60,  65,  66,  67,  78,
+             ...
+             653, 654, 655, 713, 714, 724, 725, 726, 762, 763],
+            dtype='int64', length=112)}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [47]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[47]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Name          Caterpie
+Type 1             Bug
+Type 2              NA
+Total              195
+HP                  45
+Attack              30
+Defense             35
+Sp. Atk             20
+Sp. Def             20
+Speed               45
+Generation           1
+Legendary        False
+Name: 13, dtype: object</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [48]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pokemon_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">159</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[48]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Name          Dratini
+Type 1         Dragon
+Type 2             NA
+Total             300
+HP                 41
+Attack             64
+Defense            45
+Sp. Atk            50
+Sp. Def            50
+Speed              50
+Generation          1
+Legendary       False
+Name: 159, dtype: object</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>What i tried to demonstrate is that, with "groups" attribute of groupby object we get a dictionary where keys of the dict are categories of the groupby object and corresponding are the indices from the original dataframe under that category.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>Extracting a particular group from groupby object:-</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [60]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="s2">"Dragon"</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[60]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 1</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>159</th>
+<td>Dratini</td>
+<td>Dragon</td>
+<td>NA</td>
+<td>300</td>
+<td>41</td>
+<td>64</td>
+<td>45</td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>160</th>
+<td>Dragonair</td>
+<td>Dragon</td>
+<td>NA</td>
+<td>420</td>
+<td>61</td>
+<td>84</td>
+<td>65</td>
+<td>70</td>
+<td>70</td>
+<td>70</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>161</th>
+<td>Dragonite</td>
+<td>Dragon</td>
+<td>Flying</td>
+<td>600</td>
+<td>91</td>
+<td>134</td>
+<td>95</td>
+<td>100</td>
+<td>100</td>
+<td>80</td>
+<td>1</td>
+<td>False</td>
+</tr>
+<tr>
+<th>365</th>
+<td>Altaria</td>
+<td>Dragon</td>
+<td>Flying</td>
+<td>490</td>
+<td>75</td>
+<td>70</td>
+<td>90</td>
+<td>70</td>
+<td>105</td>
+<td>80</td>
+<td>3</td>
+<td>False</td>
+</tr>
+<tr>
+<th>366</th>
+<td>AltariaMega Altaria</td>
+<td>Dragon</td>
+<td>Fairy</td>
+<td>590</td>
+<td>75</td>
+<td>110</td>
+<td>110</td>
+<td>110</td>
+<td>105</td>
+<td>80</td>
+<td>3</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>It's simple to use, pass in the category and it will return a dataframe of that group. <strong>But there is a peculiar bug which i want to point to -> <a href="https://vid.me/mQO2">https://vid.me/mQO2</a> </strong> </em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Lets groupby 2 categories:-</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [61]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d_grp_pokemon</span> <span class="o">=</span> <span class="n">pokemon_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">"Type 1"</span><span class="p">,</span><span class="s2">"Type 2"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [62]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d_grp_pokemon</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[62]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Type 1    Type 2  
+Bug       Electric     2
+          Fighting     2
+          Fire         2
+          Flying      14
+          Ghost        1
+          Grass        6
+          Ground       2
+          NA          17
+          Poison      12
+          Rock         3
+          Steel        7
+          Water        1
+Dark      Dragon       3
+          Fighting     2
+          Fire         3
+          Flying       5
+          Ghost        2
+          Ice          2
+          NA          10
+          Psychic      2
+          Steel        2
+Dragon    Electric     1
+          Fairy        1
+          Fire         1
+          Flying       6
+          Ground       5
+          Ice          3
+          NA          11
+          Psychic      4
+Electric  Dragon       1
+                      ..
+Rock      Ground       6
+          Ice          2
+          NA           9
+          Psychic      2
+          Steel        3
+          Water        6
+Steel     Dragon       1
+          Fairy        3
+          Fighting     1
+          Flying       1
+          Ghost        4
+          Ground       2
+          NA           5
+          Psychic      7
+          Rock         3
+Water     Dark         6
+          Dragon       2
+          Electric     2
+          Fairy        2
+          Fighting     3
+          Flying       7
+          Ghost        2
+          Grass        3
+          Ground      10
+          Ice          3
+          NA          59
+          Poison       3
+          Psychic      5
+          Rock         4
+          Steel        1
+dtype: int64</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [69]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d_grp_pokemon</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[69]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th></th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th>Type 2</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="19" valign="top">Bug</th>
+<th>Bug</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>791.0</td>
+<td>120.0</td>
+<td>124.0</td>
+<td>110.0</td>
+<td>154.0</td>
+<td>110.0</td>
+<td>173.0</td>
+<td>10.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>1100.0</td>
+<td>160.0</td>
+<td>310.0</td>
+<td>190.0</td>
+<td>80.0</td>
+<td>200.0</td>
+<td>160.0</td>
+<td>4.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>910.0</td>
+<td>140.0</td>
+<td>145.0</td>
+<td>120.0</td>
+<td>185.0</td>
+<td>160.0</td>
+<td>160.0</td>
+<td>10.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>5873.0</td>
+<td>882.0</td>
+<td>982.0</td>
+<td>862.0</td>
+<td>1020.0</td>
+<td>967.0</td>
+<td>1160.0</td>
+<td>40.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>236.0</td>
+<td>1.0</td>
+<td>90.0</td>
+<td>45.0</td>
+<td>30.0</td>
+<td>30.0</td>
+<td>40.0</td>
+<td>3.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>2304.0</td>
+<td>330.0</td>
+<td>443.0</td>
+<td>460.0</td>
+<td>344.0</td>
+<td>460.0</td>
+<td>267.0</td>
+<td>21.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Ground</th>
+<td>690.0</td>
+<td>91.0</td>
+<td>124.0</td>
+<td>195.0</td>
+<td>89.0</td>
+<td>115.0</td>
+<td>76.0</td>
+<td>7.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Ice</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>NA</th>
+<td>4925.0</td>
+<td>902.0</td>
+<td>856.0</td>
+<td>942.0</td>
+<td>668.0</td>
+<td>742.0</td>
+<td>815.0</td>
+<td>59.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Normal</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Poison</th>
+<td>4175.0</td>
+<td>645.0</td>
+<td>820.0</td>
+<td>697.0</td>
+<td>510.0</td>
+<td>712.0</td>
+<td>791.0</td>
+<td>28.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Psychic</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Rock</th>
+<td>1305.0</td>
+<td>140.0</td>
+<td>170.0</td>
+<td>440.0</td>
+<td>110.0</td>
+<td>340.0</td>
+<td>105.0</td>
+<td>12.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Steel</th>
+<td>3568.0</td>
+<td>474.0</td>
+<td>803.0</td>
+<td>787.0</td>
+<td>477.0</td>
+<td>583.0</td>
+<td>444.0</td>
+<td>25.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Water</th>
+<td>269.0</td>
+<td>40.0</td>
+<td>30.0</td>
+<td>32.0</td>
+<td>50.0</td>
+<td>52.0</td>
+<td>65.0</td>
+<td>3.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th rowspan="11" valign="top">Dark</th>
+<th>Bug</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>1320.0</td>
+<td>216.0</td>
+<td>255.0</td>
+<td>210.0</td>
+<td>235.0</td>
+<td>210.0</td>
+<td>194.0</td>
+<td>15.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>836.0</td>
+<td>115.0</td>
+<td>165.0</td>
+<td>185.0</td>
+<td>80.0</td>
+<td>185.0</td>
+<td>106.0</td>
+<td>10.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>1430.0</td>
+<td>195.0</td>
+<td>240.0</td>
+<td>170.0</td>
+<td>330.0</td>
+<td>220.0</td>
+<td>275.0</td>
+<td>6.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>2470.0</td>
+<td>466.0</td>
+<td>461.0</td>
+<td>369.0</td>
+<td>421.0</td>
+<td>352.0</td>
+<td>401.0</td>
+<td>22.0</td>
+<td>1.0</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>860.0</td>
+<td>100.0</td>
+<td>160.0</td>
+<td>200.0</td>
+<td>150.0</td>
+<td>180.0</td>
+<td>70.0</td>
+<td>6.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>Ground</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>It's visually same as multi-index dataframe and functionally similar to a normal groupby object.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>Iterating over groupby object to populate a dataframe on fulfilling a condition:- </em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [70]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">grp_pokemon</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('Bug',                         Name Type 1    Type 2  Total  HP  Attack  Defense  \
+13                  Caterpie    Bug        NA    195  45      30       35   
+14                   Metapod    Bug        NA    205  50      20       55   
+15                Butterfree    Bug    Flying    395  60      45       50   
+16                    Weedle    Bug    Poison    195  40      35       30   
+17                    Kakuna    Bug    Poison    205  45      25       50   
+18                  Beedrill    Bug    Poison    395  65      90       40   
+19     BeedrillMega Beedrill    Bug    Poison    495  65     150       40   
+51                     Paras    Bug     Grass    285  35      70       55   
+52                  Parasect    Bug     Grass    405  60      95       80   
+53                   Venonat    Bug    Poison    305  60      55       50   
+54                  Venomoth    Bug    Poison    450  70      65       60   
+132                  Scyther    Bug    Flying    500  70     110       80   
+136                   Pinsir    Bug        NA    500  65     125      100   
+137        PinsirMega Pinsir    Bug    Flying    600  65     155      120   
+179                   Ledyba    Bug    Flying    265  40      20       30   
+180                   Ledian    Bug    Flying    390  55      35       50   
+181                 Spinarak    Bug    Poison    250  40      60       40   
+182                  Ariados    Bug    Poison    390  70      90       70   
+208                    Yanma    Bug    Flying    390  65      65       45   
+219                   Pineco    Bug        NA    290  50      65       90   
+220               Forretress    Bug     Steel    465  75      90      140   
+228                   Scizor    Bug     Steel    500  70     130      100   
+229        ScizorMega Scizor    Bug     Steel    600  70     150      140   
+230                  Shuckle    Bug      Rock    505  20      10      230   
+231                Heracross    Bug  Fighting    500  80     125       75   
+232  HeracrossMega Heracross    Bug  Fighting    600  80     185      115   
+288                  Wurmple    Bug        NA    195  45      45       35   
+289                  Silcoon    Bug        NA    205  50      35       55   
+290                Beautifly    Bug    Flying    395  60      70       50   
+291                  Cascoon    Bug        NA    205  50      35       55   
+..                       ...    ...       ...    ...  ..     ...      ...   
+447               Kricketune    Bug        NA    384  77      85       51   
+457                    Burmy    Bug        NA    224  40      29       45   
+458      WormadamPlant Cloak    Bug     Grass    424  60      59       85   
+459      WormadamSandy Cloak    Bug    Ground    424  60      79      105   
+460      WormadamTrash Cloak    Bug     Steel    424  60      69       95   
+461                   Mothim    Bug    Flying    424  70      94       50   
+462                   Combee    Bug    Flying    244  30      30       42   
+463                Vespiquen    Bug    Flying    474  70      80      102   
+520                  Yanmega    Bug    Flying    515  86      76       86   
+600                 Sewaddle    Bug     Grass    310  45      53       70   
+601                 Swadloon    Bug     Grass    380  55      63       90   
+602                 Leavanny    Bug     Grass    500  75     103       80   
+603                 Venipede    Bug    Poison    260  30      45       59   
+604               Whirlipede    Bug    Poison    360  40      55       99   
+605                Scolipede    Bug    Poison    485  60     100       89   
+618                  Dwebble    Bug      Rock    325  50      65       85   
+619                  Crustle    Bug      Rock    475  70      95      125   
+649               Karrablast    Bug        NA    315  50      75       45   
+650               Escavalier    Bug     Steel    495  70     135      105   
+656                   Joltik    Bug  Electric    319  50      47       50   
+657               Galvantula    Bug  Electric    472  70      77       60   
+677                  Shelmet    Bug        NA    305  50      40       85   
+678                 Accelgor    Bug        NA    495  80      70       40   
+693                   Durant    Bug     Steel    484  58     109      112   
+697                 Larvesta    Bug      Fire    360  55      85       55   
+698                Volcarona    Bug      Fire    550  85      60       65   
+717                 Genesect    Bug     Steel    600  71     120       95   
+732               Scatterbug    Bug        NA    200  38      35       40   
+733                   Spewpa    Bug        NA    213  45      22       60   
+734                 Vivillon    Bug    Flying    411  80      52       50   
+
+     Sp. Atk  Sp. Def  Speed  Generation Legendary  
+13        20       20     45           1     False  
+14        25       25     30           1     False  
+15        90       80     70           1     False  
+16        20       20     50           1     False  
+17        25       25     35           1     False  
+18        45       80     75           1     False  
+19        15       80    145           1     False  
+51        45       55     25           1     False  
+52        60       80     30           1     False  
+53        40       55     45           1     False  
+54        90       75     90           1     False  
+132       55       80    105           1     False  
+136       55       70     85           1     False  
+137       65       90    105           1     False  
+179       40       80     55           2     False  
+180       55      110     85           2     False  
+181       40       40     30           2     False  
+182       60       60     40           2     False  
+208       75       45     95           2     False  
+219       35       35     15           2     False  
+220       60       60     40           2     False  
+228       55       80     65           2     False  
+229       65      100     75           2     False  
+230       10      230      5           2     False  
+231       40       95     85           2     False  
+232       40      105     75           2     False  
+288       20       30     20           3     False  
+289       25       25     15           3     False  
+290      100       50     65           3     False  
+291       25       25     15           3     False  
+..       ...      ...    ...         ...       ...  
+447       55       51     65           4     False  
+457       29       45     36           4     False  
+458       79      105     36           4     False  
+459       59       85     36           4     False  
+460       69       95     36           4     False  
+461       94       50     66           4     False  
+462       30       42     70           4     False  
+463       80      102     40           4     False  
+520      116       56     95           4     False  
+600       40       60     42           5     False  
+601       50       80     42           5     False  
+602       70       80     92           5     False  
+603       30       39     57           5     False  
+604       40       79     47           5     False  
+605       55       69    112           5     False  
+618       35       35     55           5     False  
+619       65       75     45           5     False  
+649       40       45     60           5     False  
+650       60      105     20           5     False  
+656       57       50     65           5     False  
+657       97       60    108           5     False  
+677       40       65     25           5     False  
+678      100       60    145           5     False  
+693       48       48    109           5     False  
+697       50       55     60           5     False  
+698      135      105    100           5     False  
+717      120       95     99           5     False  
+732       27       25     35           6     False  
+733       27       30     29           6     False  
+734       90       50     89           6     False  
+
+[69 rows x 12 columns])
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>So, while iterating over a groupby object a tuple is returned every time. Tuple contains 2 elements, 1st is the category name and then related data. It is obvious then that we need to unpack the tuple to work with it.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [71]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">pokemon_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [72]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">category</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="n">grp_pokemon</span><span class="p">:</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">"Attack"</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+    
+<span class="c1">#unpacked the tuple to category and data,where category contains the first element of the tuple</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [73]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[73]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Name</th>
+<th>Type 1</th>
+<th>Type 2</th>
+<th>Total</th>
+<th>HP</th>
+<th>Attack</th>
+<th>Defense</th>
+<th>Sp. Atk</th>
+<th>Sp. Def</th>
+<th>Speed</th>
+<th>Generation</th>
+<th>Legendary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>232</th>
+<td>HeracrossMega Heracross</td>
+<td>Bug</td>
+<td>Fighting</td>
+<td>600.0</td>
+<td>80.0</td>
+<td>185.0</td>
+<td>115.0</td>
+<td>40.0</td>
+<td>105.0</td>
+<td>75.0</td>
+<td>2.0</td>
+<td>False</td>
+</tr>
+<tr>
+<th>393</th>
+<td>AbsolMega Absol</td>
+<td>Dark</td>
+<td>NA</td>
+<td>565.0</td>
+<td>65.0</td>
+<td>150.0</td>
+<td>60.0</td>
+<td>115.0</td>
+<td>60.0</td>
+<td>115.0</td>
+<td>3.0</td>
+<td>False</td>
+</tr>
+<tr>
+<th>426</th>
+<td>RayquazaMega Rayquaza</td>
+<td>Dragon</td>
+<td>Flying</td>
+<td>780.0</td>
+<td>105.0</td>
+<td>180.0</td>
+<td>100.0</td>
+<td>180.0</td>
+<td>100.0</td>
+<td>115.0</td>
+<td>3.0</td>
+<td>True</td>
+</tr>
+<tr>
+<th>517</th>
+<td>Electivire</td>
+<td>Electric</td>
+<td>NA</td>
+<td>540.0</td>
+<td>75.0</td>
+<td>123.0</td>
+<td>67.0</td>
+<td>95.0</td>
+<td>85.0</td>
+<td>95.0</td>
+<td>4.0</td>
+<td>False</td>
+</tr>
+<tr>
+<th>792</th>
+<td>Xerneas</td>
+<td>Fairy</td>
+<td>NA</td>
+<td>680.0</td>
+<td>126.0</td>
+<td>131.0</td>
+<td>95.0</td>
+<td>131.0</td>
+<td>98.0</td>
+<td>99.0</td>
+<td>6.0</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>So, we iterated over each group and extracted the row with largest value for "Attack" column.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>agg() method of groupby object:- </em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [74]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">'Attack'</span><span class="p">:</span><span class="s1">'sum'</span><span class="p">,</span>
+                <span class="s1">'Defense'</span><span class="p">:[</span><span class="s1">'mean'</span><span class="p">,</span><span class="s1">'sum'</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[74]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th></th>
+<th colspan="2" halign="left">Defense</th>
+<th>Attack</th>
+</tr>
+<tr>
+<th></th>
+<th>mean</th>
+<th>sum</th>
+<th>sum</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>70.724638</td>
+<td>4880</td>
+<td>4897</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>70.225806</td>
+<td>2177</td>
+<td>2740</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>86.375000</td>
+<td>2764</td>
+<td>3588</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>66.295455</td>
+<td>2917</td>
+<td>3040</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>65.705882</td>
+<td>1117</td>
+<td>1046</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>65.925926</td>
+<td>1780</td>
+<td>2613</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>67.769231</td>
+<td>3524</td>
+<td>4408</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>66.250000</td>
+<td>265</td>
+<td>315</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>81.187500</td>
+<td>2598</td>
+<td>2361</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>70.800000</td>
+<td>4956</td>
+<td>5125</td>
+</tr>
+<tr>
+<th>Ground</th>
+<td>84.843750</td>
+<td>2715</td>
+<td>3064</td>
+</tr>
+<tr>
+<th>Ice</th>
+<td>71.416667</td>
+<td>1714</td>
+<td>1746</td>
+</tr>
+<tr>
+<th>Normal</th>
+<td>59.846939</td>
+<td>5865</td>
+<td>7200</td>
+</tr>
+<tr>
+<th>Poison</th>
+<td>68.821429</td>
+<td>1927</td>
+<td>2091</td>
+</tr>
+<tr>
+<th>Psychic</th>
+<td>67.684211</td>
+<td>3858</td>
+<td>4073</td>
+</tr>
+<tr>
+<th>Rock</th>
+<td>100.795455</td>
+<td>4435</td>
+<td>4086</td>
+</tr>
+<tr>
+<th>Steel</th>
+<td>126.370370</td>
+<td>3412</td>
+<td>2503</td>
+</tr>
+<tr>
+<th>Water</th>
+<td>72.946429</td>
+<td>8170</td>
+<td>8305</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [75]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grp_pokemon</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">'sum'</span><span class="p">,</span><span class="s1">'mean'</span><span class="p">,</span><span class="s1">'std'</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[75]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th></th>
+<th colspan="3" halign="left">Total</th>
+<th colspan="3" halign="left">HP</th>
+<th colspan="3" halign="left">Attack</th>
+<th>Defense</th>
+<th>...</th>
+<th>Sp. Def</th>
+<th colspan="3" halign="left">Speed</th>
+<th colspan="3" halign="left">Generation</th>
+<th colspan="3" halign="left">Legendary</th>
+</tr>
+<tr>
+<th></th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+<th>sum</th>
+<th>...</th>
+<th>std</th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+<th>sum</th>
+<th>mean</th>
+<th>std</th>
+</tr>
+<tr>
+<th>Type 1</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>Bug</th>
+<td>26146</td>
+<td>378.927536</td>
+<td>117.875223</td>
+<td>3925</td>
+<td>56.884058</td>
+<td>16.328914</td>
+<td>4897</td>
+<td>70.971014</td>
+<td>37.040904</td>
+<td>4880</td>
+<td>...</td>
+<td>32.126395</td>
+<td>4256</td>
+<td>61.681159</td>
+<td>33.227599</td>
+<td>222</td>
+<td>3.217391</td>
+<td>1.598433</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>Dark</th>
+<td>13818</td>
+<td>445.741935</td>
+<td>109.126217</td>
+<td>2071</td>
+<td>66.806452</td>
+<td>21.078297</td>
+<td>2740</td>
+<td>88.387097</td>
+<td>25.774247</td>
+<td>2177</td>
+<td>...</td>
+<td>24.799020</td>
+<td>2361</td>
+<td>76.161290</td>
+<td>27.768203</td>
+<td>125</td>
+<td>4.032258</td>
+<td>1.353609</td>
+<td>2.0</td>
+<td>0.064516</td>
+<td>0.249731</td>
+</tr>
+<tr>
+<th>Dragon</th>
+<td>17617</td>
+<td>550.531250</td>
+<td>146.267538</td>
+<td>2666</td>
+<td>83.312500</td>
+<td>23.795415</td>
+<td>3588</td>
+<td>112.125000</td>
+<td>33.742622</td>
+<td>2764</td>
+<td>...</td>
+<td>29.884843</td>
+<td>2657</td>
+<td>83.031250</td>
+<td>23.239961</td>
+<td>124</td>
+<td>3.875000</td>
+<td>1.431219</td>
+<td>12.0</td>
+<td>0.375000</td>
+<td>0.491869</td>
+</tr>
+<tr>
+<th>Electric</th>
+<td>19510</td>
+<td>443.409091</td>
+<td>105.721952</td>
+<td>2631</td>
+<td>59.795455</td>
+<td>17.306511</td>
+<td>3040</td>
+<td>69.090909</td>
+<td>23.764169</td>
+<td>2917</td>
+<td>...</td>
+<td>22.601275</td>
+<td>3718</td>
+<td>84.500000</td>
+<td>26.691607</td>
+<td>144</td>
+<td>3.272727</td>
+<td>1.604697</td>
+<td>4.0</td>
+<td>0.090909</td>
+<td>0.290803</td>
+</tr>
+<tr>
+<th>Fairy</th>
+<td>7024</td>
+<td>413.176471</td>
+<td>123.781680</td>
+<td>1260</td>
+<td>74.117647</td>
+<td>23.587291</td>
+<td>1046</td>
+<td>61.529412</td>
+<td>29.751298</td>
+<td>1117</td>
+<td>...</td>
+<td>29.721130</td>
+<td>826</td>
+<td>48.588235</td>
+<td>23.305200</td>
+<td>70</td>
+<td>4.117647</td>
+<td>2.147160</td>
+<td>1.0</td>
+<td>0.058824</td>
+<td>0.242536</td>
+</tr>
+<tr>
+<th>Fighting</th>
+<td>11244</td>
+<td>416.444444</td>
+<td>102.464378</td>
+<td>1886</td>
+<td>69.851852</td>
+<td>25.852695</td>
+<td>2613</td>
+<td>96.777778</td>
+<td>28.290163</td>
+<td>1780</td>
+<td>...</td>
+<td>22.745777</td>
+<td>1784</td>
+<td>66.074074</td>
+<td>26.054567</td>
+<td>91</td>
+<td>3.370370</td>
+<td>1.800601</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>Fire</th>
+<td>23820</td>
+<td>458.076923</td>
+<td>109.760496</td>
+<td>3635</td>
+<td>69.903846</td>
+<td>19.404123</td>
+<td>4408</td>
+<td>84.769231</td>
+<td>28.769275</td>
+<td>3524</td>
+<td>...</td>
+<td>22.619908</td>
+<td>3871</td>
+<td>74.442308</td>
+<td>25.245783</td>
+<td>167</td>
+<td>3.211538</td>
+<td>1.850665</td>
+<td>5.0</td>
+<td>0.096154</td>
+<td>0.297678</td>
+</tr>
+<tr>
+<th>Flying</th>
+<td>1940</td>
+<td>485.000000</td>
+<td>161.400124</td>
+<td>283</td>
+<td>70.750000</td>
+<td>20.694202</td>
+<td>315</td>
+<td>78.750000</td>
+<td>37.500000</td>
+<td>265</td>
+<td>...</td>
+<td>22.173558</td>
+<td>410</td>
+<td>102.500000</td>
+<td>32.098806</td>
+<td>22</td>
+<td>5.500000</td>
+<td>0.577350</td>
+<td>2.0</td>
+<td>0.500000</td>
+<td>0.577350</td>
+</tr>
+<tr>
+<th>Ghost</th>
+<td>14066</td>
+<td>439.562500</td>
+<td>110.072685</td>
+<td>2062</td>
+<td>64.437500</td>
+<td>31.685895</td>
+<td>2361</td>
+<td>73.781250</td>
+<td>29.629687</td>
+<td>2598</td>
+<td>...</td>
+<td>26.038414</td>
+<td>2059</td>
+<td>64.343750</td>
+<td>28.020280</td>
+<td>134</td>
+<td>4.187500</td>
+<td>1.693203</td>
+<td>2.0</td>
+<td>0.062500</td>
+<td>0.245935</td>
+</tr>
+<tr>
+<th>Grass</th>
+<td>29480</td>
+<td>421.142857</td>
+<td>106.650626</td>
+<td>4709</td>
+<td>67.271429</td>
+<td>19.516564</td>
+<td>5125</td>
+<td>73.214286</td>
+<td>25.380520</td>
+<td>4956</td>
+<td>...</td>
+<td>21.446645</td>
+<td>4335</td>
+<td>61.928571</td>
+<td>28.506456</td>
+<td>235</td>
+<td>3.357143</td>
+<td>1.579173</td>
+<td>3.0</td>
+<td>0.042857</td>
+<td>0.203997</td>
+</tr>
+<tr>
+<th>Ground</th>
+<td>14000</td>
+<td>437.500000</td>
+<td>123.913081</td>
+<td>2361</td>
+<td>73.781250</td>
+<td>25.662492</td>
+<td>3064</td>
+<td>95.750000</td>
+<td>33.059087</td>
+<td>2715</td>
+<td>...</td>
+<td>21.267877</td>
+<td>2045</td>
+<td>63.906250</td>
+<td>27.450083</td>
+<td>101</td>
+<td>3.156250</td>
+<td>1.588454</td>
+<td>4.0</td>
+<td>0.125000</td>
+<td>0.336011</td>
+</tr>
+<tr>
+<th>Ice</th>
+<td>10403</td>
+<td>433.458333</td>
+<td>108.281027</td>
+<td>1728</td>
+<td>72.000000</td>
+<td>21.286861</td>
+<td>1746</td>
+<td>72.750000</td>
+<td>27.289511</td>
+<td>1714</td>
+<td>...</td>
+<td>37.213227</td>
+<td>1523</td>
+<td>63.458333</td>
+<td>24.498410</td>
+<td>85</td>
+<td>3.541667</td>
+<td>1.473805</td>
+<td>2.0</td>
+<td>0.083333</td>
+<td>0.282330</td>
+</tr>
+<tr>
+<th>Normal</th>
+<td>39365</td>
+<td>401.683673</td>
+<td>115.733038</td>
+<td>7573</td>
+<td>77.275510</td>
+<td>36.233430</td>
+<td>7200</td>
+<td>73.469388</td>
+<td>30.295862</td>
+<td>5865</td>
+<td>...</td>
+<td>25.142801</td>
+<td>7012</td>
+<td>71.551020</td>
+<td>28.406157</td>
+<td>299</td>
+<td>3.051020</td>
+<td>1.575407</td>
+<td>2.0</td>
+<td>0.020408</td>
+<td>0.142119</td>
+</tr>
+<tr>
+<th>Poison</th>
+<td>11176</td>
+<td>399.142857</td>
+<td>92.358687</td>
+<td>1883</td>
+<td>67.250000</td>
+<td>19.665019</td>
+<td>2091</td>
+<td>74.678571</td>
+<td>19.630010</td>
+<td>1927</td>
+<td>...</td>
+<td>19.887348</td>
+<td>1780</td>
+<td>63.571429</td>
+<td>22.631392</td>
+<td>71</td>
+<td>2.535714</td>
+<td>1.752927</td>
+<td>0.0</td>
+<td>0.000000</td>
+<td>0.000000</td>
+</tr>
+<tr>
+<th>Psychic</th>
+<td>27129</td>
+<td>475.947368</td>
+<td>139.026645</td>
+<td>4026</td>
+<td>70.631579</td>
+<td>28.421340</td>
+<td>4073</td>
+<td>71.456140</td>
+<td>42.309265</td>
+<td>3858</td>
+<td>...</td>
+<td>31.126329</td>
+<td>4645</td>
+<td>81.491228</td>
+<td>37.335412</td>
+<td>193</td>
+<td>3.385965</td>
+<td>1.644845</td>
+<td>14.0</td>
+<td>0.245614</td>
+<td>0.434277</td>
+</tr>
+<tr>
+<th>Rock</th>
+<td>19965</td>
+<td>453.750000</td>
+<td>108.059227</td>
+<td>2876</td>
+<td>65.363636</td>
+<td>20.833884</td>
+<td>4086</td>
+<td>92.863636</td>
+<td>35.325458</td>
+<td>4435</td>
+<td>...</td>
+<td>32.265965</td>
+<td>2460</td>
+<td>55.909091</td>
+<td>29.903580</td>
+<td>152</td>
+<td>3.454545</td>
+<td>1.848375</td>
+<td>4.0</td>
+<td>0.090909</td>
+<td>0.290803</td>
+</tr>
+<tr>
+<th>Steel</th>
+<td>13168</td>
+<td>487.703704</td>
+<td>115.420907</td>
+<td>1761</td>
+<td>65.222222</td>
+<td>16.044010</td>
+<td>2503</td>
+<td>92.703704</td>
+<td>30.388276</td>
+<td>3412</td>
+<td>...</td>
+<td>29.018758</td>
+<td>1492</td>
+<td>55.259259</td>
+<td>25.846578</td>
+<td>104</td>
+<td>3.851852</td>
+<td>1.350319</td>
+<td>4.0</td>
+<td>0.148148</td>
+<td>0.362014</td>
+</tr>
+<tr>
+<th>Water</th>
+<td>48211</td>
+<td>430.455357</td>
+<td>113.188266</td>
+<td>8071</td>
+<td>72.062500</td>
+<td>27.487026</td>
+<td>8305</td>
+<td>74.151786</td>
+<td>28.377192</td>
+<td>8170</td>
+<td>...</td>
+<td>28.460493</td>
+<td>7388</td>
+<td>65.964286</td>
+<td>23.019353</td>
+<td>320</td>
+<td>2.857143</td>
+<td>1.558800</td>
+<td>4.0</td>
+<td>0.035714</td>
+<td>0.186411</td>
+</tr>
+</tbody>
+</table>
+<p>18 rows × 27 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong><em>With the agg() method it becomes easy to aggregate all the groups under specified functions.</em></strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+
+    <div class="addthis_relatedposts_inline">
+
+
+</article>
+
+    <footer>
+<p>&copy;  </p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-100111774-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " CodeWeeD ",
+  "url" : "",
+  "image": "",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
