@@ -22,12 +22,12 @@
 
 
 <meta name="author" content="Shubham Biswas" />
-<meta name="description" content="Applying LinearRegression¶ Trying to predict &#34;mpg&#34;, so it&#39;s our target variable (y)." />
-<meta name="keywords" content="linear regression, machine learning, sklearn">
+<meta name="description" content="Applying LinearRegression using sklearn library in python¶ Data link - http://archive.ics.uci.edu/ml/datasets/Auto+MPG Trying to predict &#34;mpg&#34;, so it&#39;s our target variable (y)." />
+<meta name="keywords" content="linear regression machine learning sklearn">
 
 <meta property="og:site_name" content="CodeWeeD"/>
 <meta property="og:title" content="Ordinary Least Squares or Linear Regrssion"/>
-<meta property="og:description" content="Applying LinearRegression¶ Trying to predict &#34;mpg&#34;, so it&#39;s our target variable (y)."/>
+<meta property="og:description" content="Applying LinearRegression using sklearn library in python¶ Data link - http://archive.ics.uci.edu/ml/datasets/Auto+MPG Trying to predict &#34;mpg&#34;, so it&#39;s our target variable (y)."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="/applying-linear-regression.html"/>
 <meta property="og:type" content="article"/>
@@ -35,9 +35,7 @@
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="/author/shubham-biswas.html">
 <meta property="article:section" content="Posts"/>
-<meta property="article:tag" content="linear regression"/>
-<meta property="article:tag" content="machine learning"/>
-<meta property="article:tag" content="sklearn"/>
+<meta property="article:tag" content="linear regression machine learning sklearn"/>
 <meta property="og:image" content="">
 
   <title>CodeWeeD &ndash; Ordinary Least Squares or Linear Regrssion</title>
@@ -64,11 +62,11 @@
       </nav>
 
       <ul class="social">
-        <li><a class="sc-github" href="https://github.com/CodeWeeD0" target="_self"><i class="fa fa-github"></i></a></li>
-        <li><a class="sc-facebook" href="https://www.facebook.com/zero.shb" target="_self"><i class="fa fa-facebook"></i></a></li>
-        <li><a class="sc-twitter" href="https://twitter.com/zero_shubham" target="_self"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/shubham-biswas-544583107/" target="_self"><i class="fa fa-linkedin"></i></a></li>
-        <li><a class="sc-youtube" href="https://www.youtube.com/channel/UCngbLU5x0Zv_u3A1HLOtQkQ" target="_self"><i class="fa fa-youtube"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/CodeWeeD0" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-facebook" href="https://www.facebook.com/zero.shb" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="sc-twitter" href="https://twitter.com/zero_shubham" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/shubham-biswas-544583107/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-youtube" href="https://www.youtube.com/channel/UCngbLU5x0Zv_u3A1HLOtQkQ" target="_blank"><i class="fa fa-youtube"></i></a></li>
       </ul>
     </div>
 
@@ -1066,7 +1064,16 @@ h6:hover .anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Applying-LinearRegression">Applying LinearRegression<a class="anchor-link" href="#Applying-LinearRegression">&#182;</a></h1>
+<h1 id="Applying-LinearRegression-using-sklearn-library-in-python">Applying LinearRegression using sklearn library in python<a class="anchor-link" href="#Applying-LinearRegression-using-sklearn-library-in-python">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Data link - <a href="http://archive.ics.uci.edu/ml/datasets/Auto+MPG">http://archive.ics.uci.edu/ml/datasets/Auto+MPG</a> </strong></p>
+
 </div>
 </div>
 </div>
@@ -1081,7 +1088,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1092,18 +1099,9 @@ h6:hover .anchor-link {
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Data link - <a href="http://archive.ics.uci.edu/ml/datasets/Auto+MPG">http://archive.ics.uci.edu/ml/datasets/Auto+MPG</a> </strong></p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[148]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;auto-mpg.data-original.txt&#39;</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;mpg&#39;</span><span class="p">,</span><span class="s1">&#39;cylinders&#39;</span><span class="p">,</span><span class="s1">&#39;displacement&#39;</span><span class="p">,</span><span class="s1">&#39;horsepower&#39;</span><span class="p">,</span><span class="s1">&#39;weight&#39;</span><span class="p">,</span><span class="s1">&#39;acceleration&#39;</span><span class="p">,</span><span class="s1">&#39;model year&#39;</span><span class="p">,</span><span class="s1">&#39;origin&#39;</span><span class="p">,</span><span class="s1">&#39;car name&#39;</span><span class="p">))</span>
@@ -1116,7 +1114,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -1169,7 +1167,7 @@ memory usage: 28.6+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
@@ -1185,7 +1183,7 @@ memory usage: 28.6+ KB
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -1202,7 +1200,7 @@ memory usage: 28.6+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1215,7 +1213,7 @@ memory usage: 28.6+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -1259,7 +1257,7 @@ memory usage: 28.6+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -1353,7 +1351,7 @@ dtype: int64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;seaborn.axisgrid.PairGrid at 0x7f45f9f9d2e8&gt;</pre>
+<pre>&lt;seaborn.axisgrid.PairGrid at 0x7fe8df92e128&gt;</pre>
 </div>
 
 </div>
@@ -1730,7 +1728,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">mean_squared_error</span>
@@ -1743,7 +1741,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[127]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
@@ -1757,7 +1755,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[161]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
@@ -1802,7 +1800,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[150]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
@@ -1819,7 +1817,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[150]:</div>
+<div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -1854,7 +1852,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[157]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
@@ -1872,13 +1870,13 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[157]:</div>
+<div class="prompt output_prompt">Out[28]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x7f45e7129198&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fe8d8059400&gt;</pre>
 </div>
 
 </div>
@@ -1905,13 +1903,22 @@ dtype: int64</pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Residuals plot-</strong><em><a href="http://docs.statwing.com/interpreting-residual-plots-to-improve-your-regression/">http://docs.statwing.com/interpreting-residual-plots-to-improve-your-regression/</a></em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Log-Transformed-">Log Transformed-<a class="anchor-link" href="#Log-Transformed-">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
@@ -1928,7 +1935,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[159]:</div>
+<div class="prompt output_prompt">Out[29]:</div>
 
 
 
@@ -1963,7 +1970,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[160]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
@@ -1981,13 +1988,13 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[160]:</div>
+<div class="prompt output_prompt">Out[30]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x7f45e7052208&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fe8d2975828&gt;</pre>
 </div>
 
 </div>
@@ -2021,7 +2028,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_features_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">df_feature</span><span class="p">)</span>
@@ -2034,7 +2041,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2_train</span><span class="p">,</span><span class="n">x2_test</span><span class="p">,</span><span class="n">y2_train</span><span class="p">,</span><span class="n">y2_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_features_norm</span><span class="p">,</span><span class="n">df_target_norm</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
@@ -2047,7 +2054,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lr2</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x2_train</span><span class="p">,</span><span class="n">y2_train</span><span class="p">)</span>
@@ -2060,7 +2067,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lr2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x2_train</span><span class="p">,</span><span class="n">y2_train</span><span class="p">)</span>
@@ -2076,7 +2083,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[103]:</div>
+<div class="prompt output_prompt">Out[34]:</div>
 
 
 
@@ -2093,7 +2100,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lr2</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x2_test</span><span class="p">,</span><span class="n">y2_test</span><span class="p">)</span>
@@ -2109,7 +2116,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[104]:</div>
+<div class="prompt output_prompt">Out[35]:</div>
 
 
 
@@ -2126,7 +2133,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[137]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lr2_y_pred</span> <span class="o">=</span> <span class="n">lr2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x2_test</span><span class="p">)</span>
@@ -2139,7 +2146,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[138]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rmse_lr2</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y2_test</span><span class="p">,</span><span class="n">y_pred</span><span class="o">=</span><span class="n">lr2_y_pred</span><span class="p">))</span>
@@ -2173,7 +2180,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[162]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
@@ -2190,7 +2197,7 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[162]:</div>
+<div class="prompt output_prompt">Out[38]:</div>
 
 
 
@@ -2225,7 +2232,7 @@ dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[167]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
@@ -2243,13 +2250,13 @@ dtype: int64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[167]:</div>
+<div class="prompt output_prompt">Out[39]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.collections.PathCollection at 0x7f45e6e210f0&gt;</pre>
+<pre>&lt;matplotlib.collections.PathCollection at 0x7fe8d2902b00&gt;</pre>
 </div>
 
 </div>
@@ -2304,7 +2311,7 @@ dtype: int64</pre>
 }
 </script>
 
-  
+
 
 
 
@@ -2315,7 +2322,7 @@ dtype: int64</pre>
 
     <footer>
 <p>&copy;  </p>
-<p>    Powered by <a href="http://getpelican.com" target="_self">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_self">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_self">Alexandre Vicenzi</a>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
 </p>    </footer>
   </main>
 
